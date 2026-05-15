@@ -1,8 +1,9 @@
-# CHARM: CHannel-wise frequency-guided Augmentation for contrastive learning and Reconstruction in Multivariate time series anomaly detection
+# RoSA: Expert Routing Shifts for Multivariate Time Series Anomaly Detection
 
 ## Abstract
 
-As the number of time series data used in many applications increases, multivariate time series anomaly detection has become more important. Due to the lack of labelled data, many existing methods employ unsupervised manner such as contrastive learning or reconstruction method to learn normal data patterns. However, these methods often fall short on capturing informative channel correlations relevant for anomaly detection. In this paper, we propose a novel framework that identifies informative channels using localized frequency analysis and simple statistics. These channels guide the generation of contrastive pairs, and the model is trained using a combination of contrastive learning and reconstruction to capture fine-grained channel structures. Specifically, we apply FFT to each channel over sliding windows and select those whose frequency amplitudes significantly deviate from their own average. We then apply inverse FFT augmentation to these channels to generate negative samples, and similarly augment the remaining channels to obtain positive samples for contrastive learning. Additionally, using the representation space learned from contrastive samples, we classify each window based on both its similarity to the nearest and farthest neighbors and its reconstruction error. Experiments on real-world datasets demonstrate that our model outperforms baselines.
+Multivariate time series anomaly detection is commonly approached using forecasting or reconstruction models, where anomalies are identified based on prediction errors. However, modern models can accurately predict not only normal patterns but also anomalous ones, making prediction error an unreliable signal for anomaly detection. To address this limitation, we propose RoSA, a routing shift-based anomaly detection framework that leverages the internal behavior of mixture-of
+experts models. Our key insight is that even when prediction errors are small, anomalies cause shifts in how the model routes inputs to experts. RoSA captures these routing shifts and detects anomalies by identifying deviations from normal expert routing patterns. To ensure reliable routing pattern, we incorporate a Bures-Wasserstein alignment objective that preserves the statistical structure of normal data, which stabilizes expert specialization and improves the consistency of routing pattern. Extensive experiments on real-world datasets show that RoSA consistently outperforms strong baselines, particularly in challenging scenarios involving subtle anomalies, non-stationarity, and complex inter-channel dependencies. Our results demonstrate that modeling routing shift as an anomaly signal provides a robust alternative to prediction error-based approaches, offering a new perspective on anomaly detection by focusing on internal model behavior.
 
 ## Model Architecture
 
@@ -13,8 +14,8 @@ As the number of time series data used in many applications increases, multivari
 1. Create a virtual environment:
 
 ```bash
-python -m venv charm
-source charm/bin/activate
+python -m venv rosa
+source rosa/bin/activate
 ```
 
 2. Install the required packages:
